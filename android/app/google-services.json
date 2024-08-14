@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "270248282518",
+    "project_id": "digitalepisode-e3d2a",
+    "storage_bucket": "digitalepisode-e3d2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270248282518:android:62d63cfd4d0a7d28b9b5b7",
+        "android_client_info": {
+          "package_name": "com.digital_episode.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-78YEDAvacA0sSZuYtrfMot3trnhk8k0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
