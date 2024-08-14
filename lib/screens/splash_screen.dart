@@ -1,4 +1,5 @@
 import 'package:digital_episode_new/screens/home_screen.dart';
+import 'package:digital_episode_new/screens/login_or_register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
  Future.delayed(const Duration(seconds: 2), (){
 Navigator.of(context).pushReplacement(
   MaterialPageRoute(builder: 
-  (_)=> const HomeScreen(),));
+  (_)=> const LoginOrRegister(),));
  });
   }
   @override
