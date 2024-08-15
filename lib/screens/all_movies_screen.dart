@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
 
 
@@ -12,7 +13,7 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-   
+      appBar:MyAppBar(), 
       body: Center(child: Text("all movies")),);
   }
 }

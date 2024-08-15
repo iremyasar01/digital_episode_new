@@ -1,10 +1,13 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:digital_episode_new/components/my_users_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+//import 'package:get/state_manager.dart';
 
-class Auth{
+class Auth {
+//extends GetxController{
 
   
 
@@ -110,4 +113,26 @@ Future<void> singOut() async{
   
     
 }
+Stream<MyUsersModel> getMyUsersAsStream() {
+  String uid = currentUser!.uid;
+  return FirebaseFirestore.instance.collection("Users").doc(uid)
+    .snapshots()
+    .map((snapshot) => MyUsersModel.fromJson(snapshot.data()!));
+}
+/*
+//var myUser= MyUsersModel().obs;
+//MyUsersModel myUser= MyUsersModel();
+  Stream<MyUsersModel> getMyUsersAsStream() {
+    String uid =currentUser!.uid;
+   final mycurrentuser =  _firestore.collection("Users").doc(uid)
+    .snapshots().
+    map((event)=>
+      //biz sadece event.data ile json'a ulaşıyoruz.
+      //onu usersmodel türüne dönüştürmemiz lazım.
+         MyUsersModel.fromJson(event.data()!));
+    
+    return mycurrentuser;
+
+  }
+  */
 }

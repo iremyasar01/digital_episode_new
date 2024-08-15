@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
 class AllTvShowsScreen extends StatefulWidget {
   const AllTvShowsScreen({super.key});
@@ -9,6 +10,9 @@ class AllTvShowsScreen extends StatefulWidget {
 class _AllTvShowsScreenState extends State<AllTvShowsScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("all tv show")),);
+    return const Scaffold
+    (
+        appBar:MyAppBar(), 
+      body: Center(child: Text("all tv show")),);
   }
 }

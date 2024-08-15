@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
 
 class NewSeriesScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class NewSeriesScreen extends StatefulWidget {
 class _NewSeriesScreenState extends State<NewSeriesScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Center(child: Text("new series")),);
+    return const Scaffold(
+        appBar:MyAppBar(), 
+      body: Center(child: Text("new series")),);
   }
 }

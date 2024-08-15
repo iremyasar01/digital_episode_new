@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
 
 class WatchlistScreen extends StatefulWidget {
@@ -10,6 +11,8 @@ class WatchlistScreen extends StatefulWidget {
 class _WatchlistScreenState extends State<WatchlistScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold( body: Center(child: Text("watchlist")),);
+    return const Scaffold(
+      appBar: MyAppBar(), 
+      body: Center(child: Text("watchlist")),);
   }
 }
