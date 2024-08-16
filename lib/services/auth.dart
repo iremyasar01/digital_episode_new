@@ -9,7 +9,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 class Auth {
 //extends GetxController{
 
-  
+
 
 final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 //final userCollection = FirebaseFirestore.instance.collection("Users");
@@ -18,11 +18,11 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 //firebaseden user dön.
   User? get currentUser => firebaseAuth.currentUser;
+
   Stream<User?> get authChanges => firebaseAuth.authStateChanges();
   //bir değişikliği olduğu zaman stream sayesinde haberim olacak.
   //authStateChanges kullanıcımız çıkış yaptı mı içeride mi falan.
     // Firebase veya başka bir backend üzerinde e-posta kontrolü yapıyoruz.
-
 
   Future<void> singUp ({
     required String username,
@@ -82,6 +82,8 @@ Future<void> createUser ({
   }
     
   );
+
+
 }
 
 
@@ -119,6 +121,41 @@ Stream<MyUsersModel> getMyUsersAsStream() {
     .snapshots()
     .map((snapshot) => MyUsersModel.fromJson(snapshot.data()!));
 }
+
+  Future<void> updateUser({
+    //required String email,
+    //required String username,
+    required String name,
+    required String surname,
+    required String phoneNumber,
+    required String password,
+  }) async {
+    
+
+   // await _firestore.collection("Users").doc(uid).delete();
+     String uid = currentUser!.uid;
+     //await removeItem(uid: uid);
+  
+
+    await _firestore.collection("Users").doc(uid).update({
+      //"email": email,
+      //"username": username,
+      "name": name,
+      "surname": surname,
+      "phoneNumber": phoneNumber,
+      "password": password,
+    });
+     // var updatedUserDoc = await _firestore.collection("Users").doc(uid).get();
+  }
+
+
+  Future<void> removeItem ({ required String uid})async {
+  
+ await _firestore.collection("Users").doc(uid).delete();
+  }
+
+}
+
 /*
 //var myUser= MyUsersModel().obs;
 //MyUsersModel myUser= MyUsersModel();
@@ -135,4 +172,4 @@ Stream<MyUsersModel> getMyUsersAsStream() {
 
   }
   */
-}
+
