@@ -13,8 +13,8 @@ class ProfileScreen extends StatefulWidget {
 }
 //profile ekranında ad soyad istesin maili gçstersin tel no iste.uğdate buttondan ekran yap firebasedem çek
 class _ProfileScreenState extends State<ProfileScreen> {
- //late TextEditingController emailController;
-  //late TextEditingController usernameController;
+ late TextEditingController emailController;
+  late TextEditingController usernameController;
   late TextEditingController nameController;
   late TextEditingController surnameController;
   late TextEditingController phoneNumberController;
@@ -28,6 +28,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // Kullanıcı bilgilerini Firestore'dan çekip controller'lara atıyoruz
     Auth().getMyUsersAsStream().listen((userModel) {
       setState(() {
+         emailController = TextEditingController(text: userModel.email);
+          usernameController = TextEditingController(text: userModel.username);
         nameController = TextEditingController(text: userModel.name);
         surnameController = TextEditingController(text: userModel.surname);
         phoneNumberController = TextEditingController(text: userModel.phoneNumber);
@@ -39,6 +41,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void dispose() {
     // Dispose of the controllers when the widget is disposed
+    emailController.dispose();
+    usernameController.dispose();
     nameController.dispose();
     surnameController.dispose();
     phoneNumberController.dispose();
@@ -48,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
      Widget inputWidget(
-      {TextEditingController? controller,String? labelText, String? newValue, bool? readOnly = false,}) {
+      {TextEditingController? controller,String? labelText, String? newValue, bool? readOnly =false,bool? obscureText =false }) {
         
     final border = OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -57,6 +61,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       padding: const EdgeInsets.only(bottom: 20),
       child: TextField(
         controller: controller,
+        readOnly: readOnly ?? true,
+         obscureText: obscureText ?? true, 
         decoration: InputDecoration(
           labelText: labelText,
          border: border, enabledBorder: border, focusedBorder: border),
@@ -105,17 +111,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Center(
             child: Column(
               children: [
-                inputWidget( controller: TextEditingController(text: myUsersModel?.email),
-                      labelText: "Email" ),
-
-                     // hintText: "${myUsersModel?.email}"),
-                  //labelText:"email" , hintText: "${myUsersModel?.email}"   ),
-                inputWidget(controller: TextEditingController(text: myUsersModel?.username),labelText:"username" ,  ),
+                inputWidget( controller:emailController, newValue:  myUsersModel?.email,labelText: "Email", readOnly: true ),
+                inputWidget(controller: usernameController, newValue:  myUsersModel?.username,labelText:"username" ,readOnly: true  ),
                 inputWidget(controller: nameController,newValue:  myUsersModel?.name,labelText:"name" , ),
                 inputWidget(controller: surnameController, newValue:  myUsersModel?.surname,labelText:"surname" ,   ),
                 inputWidget(controller: phoneNumberController, newValue: myUsersModel?.phoneNumber,labelText:"phone number" , ),
-                inputWidget(controller: passwordController, newValue:  myUsersModel?.password,labelText:"password" ,    ),
-                 inputWidget(controller: passwordAgainController, newValue:  myUsersModel?.passwordAgain,labelText:"password again" ,    ),
+                inputWidget(controller: passwordController, newValue:  myUsersModel?.password,labelText:"password" , obscureText: true   ),
+                 inputWidget(controller: passwordAgainController, newValue:  myUsersModel?.passwordAgain,labelText:"password again" , obscureText: true    ),
 
                  ElevatedButton(onPressed: (){
                    // Bilgileri güncelle
