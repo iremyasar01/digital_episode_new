@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:digital_episode_new/components/all_movies_model.dart';
 import 'package:digital_episode_new/components/new_series_model.dart';
 import 'package:digital_episode_new/components/tv_shows_models.dart';
 import 'package:digital_episode_new/constants/api_constants.dart';
@@ -66,6 +67,31 @@ return tvShows;
       }
 
       return newSeries;
+    } else {
+      throw Exception("Failed to load shows");
+    }
+  }
+   Future<List<AllMoviesModel>> getAllMovies() async{
+ final response= await http.get(Uri.parse("$BASE_URL/trending/movie/week?api_key=$API_KEY"));
+
+
+
+     if (response.statusCode == 200) {
+      // Decode the response body
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+
+      // Extract the list of shows from the 'results' key
+      List<dynamic> responseList = responseBody['results'];
+
+      // Initialize the list of TvShowsModel
+      List<AllMoviesModel> allMovies = [];
+
+      // Map each item in responseList to a TvShowsModel
+      for (var item in responseList) {
+        allMovies.add(AllMoviesModel.fromJson(item));
+      }
+
+      return allMovies;
     } else {
       throw Exception("Failed to load shows");
     }
