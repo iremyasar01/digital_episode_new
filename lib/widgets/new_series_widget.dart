@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/screens/new_series_screen.dart';
 import 'package:flutter/material.dart';
 
 class NewSeriesWidget extends StatelessWidget {
@@ -6,18 +7,30 @@ class NewSeriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return   Column( children: [
-       const Padding( padding:EdgeInsets.symmetric(horizontal: 10),
+        Padding( padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
          mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: 
-        [Text("New Series",
+        [ const Text("New Series",
         style: TextStyle(color: Color.fromARGB(255, 65, 9, 73),
         fontSize: 20,
         fontWeight: FontWeight.w500),),
-         Text("see all",
-            style: TextStyle(color: Color.fromARGB(255, 65, 9, 73),
-            fontSize: 15),
-            ),
+         TextButton(
+          onPressed: (){
+              // Navigate to AiringTodayScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NewSeriesScreen(),
+                    ),
+                  );
+          },
+           child: const Text(
+                  "see all",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 65, 9, 73),
+                    fontSize: 15,
+                  ),),),
         ],
         
       ),

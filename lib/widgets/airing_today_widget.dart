@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/screens/all_tv_shows_screen.dart';
 import 'package:flutter/material.dart';
 
 class AiringTodayWidget extends StatelessWidget {
@@ -7,20 +8,32 @@ class AiringTodayWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Column(
       children: [
-       const Padding(padding: 
-        EdgeInsets.symmetric(horizontal: 10),
+        Padding(padding: 
+       const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Airing Today",
+          const  Text("Airing Today",
             style: TextStyle(color: Color.fromARGB(255, 65, 9, 73),
             fontSize: 20,
             fontWeight: FontWeight.w500),
             ),
-            Text("see all",
-            style: TextStyle(color: Color.fromARGB(255, 65, 9, 73),
-            fontSize: 15),
-            ),
+            TextButton(
+              onPressed: () {
+                  // Navigate to AiringTodayScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AllTvShowsScreen(),
+                    ),
+                  );
+                },
+
+             child: const Text(
+                  "see all",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 65, 9, 73),
+                    fontSize: 15,),),),
           ],
         ),),
          const SizedBox(height: 15),
