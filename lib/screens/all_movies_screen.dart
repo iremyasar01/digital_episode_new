@@ -15,23 +15,27 @@ class _AllMoviesScreenState extends State<AllMoviesScreen> {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: const MyAppBar(), 
-      body: Center(
-       child:FutureBuilder(future: ApiService().getAllMovies(), builder: (context, snapshot) {
-          if(snapshot.hasData){
-        return ListView.builder(
-          itemCount:snapshot.data!.length ,
-          itemBuilder: (context, index) {
-            return Text(snapshot.data![index].title.toString());
-          }
-        );
-
-          }
-          else if(snapshot.hasError){
-            return Text("${snapshot.error}");
-
-          }
-          return const CircularProgressIndicator();
-        },),
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+           child:FutureBuilder(future: ApiService().getAllMovies(), builder: (context, snapshot) {
+              if(snapshot.hasData){
+            return ListView.builder(
+              itemCount:snapshot.data!.length ,
+              itemBuilder: (context, index) {
+                return Text(snapshot.data![index].title.toString());
+              }
+            );
+          
+              }
+              else if(snapshot.hasError){
+                return Text("${snapshot.error}");
+          
+              }
+              return const CircularProgressIndicator();
+            },),
+          ),
+        ),
       ),
     );
   }
