@@ -75,7 +75,19 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/splashScreen.png
+    - assets/
+    #splashScreen.png
+    - assets/images/tv/up1.png
+    - assets/images/tv/up2.png
+    - assets/images/tv/up3.png
+    - assets/images/tv/up4.png
+    - assets/images/tv/up5.png
+    - assets/images/tv/up6.png
+    - assets/images/tv/new1.png
+    - assets/images/tv/new2.png
+    - assets/images/tv/new3.png
+    - assets/images/tv/new4.png
+    - assets/images/tv/new5.png
     
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

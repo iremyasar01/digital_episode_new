@@ -1,4 +1,6 @@
 import 'package:digital_episode_new/widgets/drawer.dart';
+import 'package:digital_episode_new/widgets/airing_today_widget.dart';
+import 'package:digital_episode_new/widgets/new_series_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 class HomeScreen extends StatefulWidget {
@@ -71,15 +73,21 @@ class _HomeScreenState extends State<HomeScreen> {
       child: SafeArea(child: 
       Column(children: [
         Padding(padding: 
-        EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+        EdgeInsets.symmetric(vertical: 13, horizontal: 10),
        child: Row(
         children: [Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [Text("Hello",
-          style: TextStyle(color: Color.fromARGB(255, 65, 9, 73), fontSize: 28, fontWeight: FontWeight.w500),),
-          Text("What did you watch?",style: TextStyle(color: Color.fromARGB(255, 65, 9, 73), fontSize: 28, fontWeight: FontWeight.w500),),],
+          style: TextStyle(color: Color.fromARGB(255, 65, 9, 73), fontSize: 15, fontWeight: FontWeight.w500),),
+          Text("What did you watch today?",style: TextStyle(color: Color.fromARGB(255, 65, 9, 73), fontSize: 15, fontWeight: FontWeight.w500),),],
         )],
-       ), )
+       ), 
+       ),
+        SizedBox(height: 15),
+        AiringTodayWidget(),
+        SizedBox(height:15),
+       NewSeriesWidget(),
+
       ],)),
      ),
       
