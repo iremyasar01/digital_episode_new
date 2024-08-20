@@ -1,4 +1,4 @@
-import 'package:digital_episode_new/screens/all_tv_shows_screen.dart';
+import 'package:digital_episode_new/screens/airing_today_screen.dart';
 import 'package:digital_episode_new/services/api_service.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class AiringTodayWidget extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const AllTvShowsScreen(),
+                      builder: (context) => const AiringTodayScreen(),
                     ),
                   );
                 },

@@ -1,5 +1,6 @@
 import 'package:digital_episode_new/components/my_list_tile.dart';
 import 'package:digital_episode_new/screens/all_movies_screen.dart';
+import 'package:digital_episode_new/screens/airing_today_screen.dart';
 import 'package:digital_episode_new/screens/all_tv_shows_screen.dart';
 import 'package:digital_episode_new/screens/favorites_screen.dart';
 import 'package:digital_episode_new/screens/home_screen.dart';
@@ -55,6 +56,7 @@ class _MyDrawerState extends State<MyDrawer> {
         Navigator.push(
        context,
         MaterialPageRoute(builder: (context) => const NewSeriesScreen())) ),
+      MyListTile(text: "Airing Today",icon: Icons.live_tv_rounded,onTap: () =>Navigator.push(context,MaterialPageRoute(builder: (context) => const AiringTodayScreen()))),
         MyListTile( text: "log out",icon: Icons.exit_to_app_outlined,onTap: () {
                Auth().singOut();
           Navigator.of(context).pushAndRemoveUntil(
