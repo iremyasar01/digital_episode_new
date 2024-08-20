@@ -17,9 +17,9 @@ class AllMoviesScreen extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
-                return const Center(child: Text("Bir hata oluştu, lütfen tekrar deneyin."));
+                return const Center(child: Text("failed.Please try again."));
               } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                return const Center(child: Text("Yeni bir dizi bulunamadı."));
+                return const Center(child: Text("there are no movies."));
               } else {
                 return Column(
                   children: List.generate(snapshot.data!.length, (index) {

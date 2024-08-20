@@ -50,7 +50,8 @@ class NewSeriesScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Icon(
+                         const  Spacer(),
+                         const Icon(
                             Icons.arrow_forward_ios,
                             color: Color.fromARGB(255, 65, 9, 73),
                             size: 23,

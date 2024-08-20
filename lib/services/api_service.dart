@@ -94,7 +94,7 @@ return tvShows;
 
       return allMovies;
     } else {
-      throw Exception("Failed to load shows");
+      throw Exception("Failed to load movies");
     }
   }
  
@@ -105,6 +105,7 @@ return tvShows;
 
 
      if (response.statusCode == 200) {
+     
       // Decode the response body
       Map<String, dynamic> responseBody = jsonDecode(response.body);
 
@@ -121,8 +122,36 @@ return tvShows;
 
       return allSeries;
     } else {
-      throw Exception("Failed to load shows");
+      throw Exception("Failed to load all series");
+    }
+  }
+  Future<List<Season>> getSeasons(int seriesId) async {
+    final response = await http.get(Uri.parse('$BASE_URL/tv/$seriesId?api_key=$API_KEY&append_to_response=seasons'));
+    if (response.statusCode == 200) {
+      // JSON parse işlemi
+      var data = jsonDecode(response.body);
+      var seasons = data['seasons'] as List;
+      return seasons.map((season) => Season.fromJson(season)).toList();
+    } else {
+      throw Exception('Failed to load seasons');
     }
   }
 }
+
+class Season {
+  final int seasonNumber;
+  final String name;
+  final int episodeCount;
+
+  Season({required this.seasonNumber, required this.name, required this.episodeCount});
+
+  factory Season.fromJson(Map<String, dynamic> json) {
+    return Season(
+      seasonNumber: json['season_number'],
+      name: json['name'],
+      episodeCount: json['episode_count'],
+    );
+  }
+}
+
   

@@ -1,3 +1,4 @@
+import 'package:digital_episode_new/screens/tv_shows_details_screen.dart';
 import 'package:digital_episode_new/services/api_service.dart';
 import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
@@ -50,10 +51,17 @@ class AllTvShowsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const Icon(
-                            Icons.arrow_forward_ios,
-                            color: Color.fromARGB(255, 65, 9, 73),
-                            size: 23,
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.push(context,
+                              MaterialPageRoute(builder: (context)=> TvShowDetailsScreen(seriesId: snapshot.data![index].id!),),);
+                             //print(snapshot.data![index].id!);
+                            },
+                            child: const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Color.fromARGB(255, 65, 9, 73),
+                              size: 23,
+                            ),
                           ),
                         ],
                       ),
