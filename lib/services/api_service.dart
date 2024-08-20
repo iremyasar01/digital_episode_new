@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:digital_episode_new/components/all_movies_model.dart';
+import 'package:digital_episode_new/components/all_series_model.dart';
 import 'package:digital_episode_new/components/new_series_model.dart';
 import 'package:digital_episode_new/components/tv_shows_models.dart';
 import 'package:digital_episode_new/constants/api_constants.dart';
@@ -72,7 +73,7 @@ return tvShows;
     }
   }
    Future<List<AllMoviesModel>> getAllMovies() async{
- final response= await http.get(Uri.parse("$BASE_URL/discover/movie?api_key=$API_KEY"));
+ final response= await http.get(Uri.parse("$BASE_URL/movie/popular?api_key=$API_KEY"));
 
  
 
@@ -97,4 +98,31 @@ return tvShows;
     }
   }
  
+
+ Future<List<AllSeriesModel>> getAllSeries() async{
+ final response= await http.get(Uri.parse("$BASE_URL/tv/popular?api_key=$API_KEY"));
+
+
+
+     if (response.statusCode == 200) {
+      // Decode the response body
+      Map<String, dynamic> responseBody = jsonDecode(response.body);
+
+      // Extract the list of shows from the 'results' key
+      List<dynamic> responseList = responseBody['results'];
+
+      // Initialize the list of TvShowsModel
+      List<AllSeriesModel> allSeries = [];
+
+      // Map each item in responseList to a TvShowsModel
+      for (var item in responseList) {
+        allSeries.add(AllSeriesModel.fromJson(item));
+      }
+
+      return allSeries;
+    } else {
+      throw Exception("Failed to load shows");
+    }
+  }
 }
+  

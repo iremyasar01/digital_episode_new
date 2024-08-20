@@ -8,6 +8,7 @@ class NewSeriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 219, 216, 216),
       appBar: const MyAppBar(),
       body: SingleChildScrollView(
         child: SafeArea(
