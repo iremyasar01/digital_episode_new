@@ -77,7 +77,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return  Scaffold(
         appBar: const MyAppBar(), 
-      backgroundColor: const Color.fromARGB(255, 222, 162, 233),
+             //backgroundColor: const Color.fromARGB(255, 219, 216, 216),
+      backgroundColor: const Color.fromARGB(255, 219, 187, 224),
       //floatingActionButton: FloatingActionButton(
         //  onPressed: () => Navigator.of(context).pushNamed("/action",
           //    arguments: (id, ActionType.insert, null, null, null)),
