@@ -72,7 +72,7 @@ return tvShows;
     }
   }
    Future<List<AllMoviesModel>> getAllMovies() async{
- final response= await http.get(Uri.parse("$BASE_URL/trending/movie/week?api_key=$API_KEY"));
+ final response= await http.get(Uri.parse("$BASE_URL/discover/movie?api_key=$API_KEY"));
 
  
 
