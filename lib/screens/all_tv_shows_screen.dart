@@ -51,6 +51,15 @@ class AllTvShowsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                            IconButton(
+                            icon: const Icon(
+                              Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              //addToFavorites(seriesId, name, posterUrl);
+                            },
+                          ),
                           GestureDetector(
                             onTap: (){
                               Navigator.push(context,

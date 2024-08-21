@@ -1,56 +1,64 @@
 class EpisodeModel {
-  String? job;
-  String? department;
-  String? creditId;
-  bool? adult;
-  int? gender;
+  String? airDate;
+  int? episodeNumber;
   int? id;
-  String? knownForDepartment;
   String? name;
-  String? originalName;
-  double? popularity;
-  String? profilePath;
+  String? overview;
+  String? productionCode;
+  Null runtime;
+  int? seasonNumber;
+  int? showId;
+  String? stillPath;
+  int? voteAverage;
+  int? voteCount;
+  int? order;
 
   EpisodeModel(
-      {this.job,
-      this.department,
-      this.creditId,
-      this.adult,
-      this.gender,
+      {this.airDate,
+      this.episodeNumber,
       this.id,
-      this.knownForDepartment,
       this.name,
-      this.originalName,
-      this.popularity,
-      this.profilePath});
+      this.overview,
+      this.productionCode,
+      this.runtime,
+      this.seasonNumber,
+      this.showId,
+      this.stillPath,
+      this.voteAverage,
+      this.voteCount,
+      this.order});
 
   EpisodeModel.fromJson(Map<String, dynamic> json) {
-    job = json['job'];
-    department = json['department'];
-    creditId = json['credit_id'];
-    adult = json['adult'];
-    gender = json['gender'];
+    airDate = json['air_date'];
+    episodeNumber = json['episode_number'];
     id = json['id'];
-    knownForDepartment = json['known_for_department'];
     name = json['name'];
-    originalName = json['original_name'];
-    popularity = json['popularity'];
-    profilePath = json['profile_path'];
+    overview = json['overview'];
+    productionCode = json['production_code'];
+    runtime = json['runtime'];
+    seasonNumber = json['season_number'];
+    showId = json['show_id'];
+    stillPath = json['still_path'];
+    voteAverage = json['vote_average'];
+    voteCount = json['vote_count'];
+    order = json['order'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['job'] = job;
-    data['department'] = department;
-    data['credit_id'] = creditId;
-    data['adult'] = adult;
-    data['gender'] = gender;
+    data['air_date'] = airDate;
+    data['episode_number'] = episodeNumber;
     data['id'] = id;
-    data['known_for_department'] = knownForDepartment;
     data['name'] = name;
-    data['original_name'] = originalName;
-    data['popularity'] = popularity;
-    data['profile_path'] = profilePath;
+    data['overview'] = overview;
+    data['production_code'] = productionCode;
+    data['runtime'] = runtime;
+    data['season_number'] = seasonNumber;
+    data['show_id'] = showId;
+    data['still_path'] = stillPath;
+    data['vote_average'] = voteAverage;
+    data['vote_count'] = voteCount;
+    data['order'] = order;
     return data;
   }
 }

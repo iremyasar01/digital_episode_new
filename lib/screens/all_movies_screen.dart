@@ -49,6 +49,15 @@ class AllMoviesScreen extends StatelessWidget {
                               ),
                             ),
                           ),
+                            IconButton(
+                            icon: const Icon(
+                              Icons.favorite_border,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                             // addToFavorites(seriesId, name, posterUrl);
+                            },
+                          ),
                           const Icon(
                             Icons.arrow_forward_ios,
                             color: Color.fromARGB(255, 65, 9, 73),

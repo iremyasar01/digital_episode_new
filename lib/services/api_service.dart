@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:digital_episode_new/components/all_movies_model.dart';
 import 'package:digital_episode_new/components/all_series_model.dart';
+import 'package:digital_episode_new/components/episode_model.dart';
 import 'package:digital_episode_new/components/new_series_model.dart';
 import 'package:digital_episode_new/components/tv_shows_models.dart';
 import 'package:digital_episode_new/constants/api_constants.dart';
@@ -136,6 +137,48 @@ return tvShows;
       throw Exception('Failed to load seasons');
     }
   }
+   Future<List<EpisodeModel>> getEpisodes(String tvEpisodeGroupId) async {
+    final response = await http.get(Uri.parse('$BASE_URL/tv/episode_group/$tvEpisodeGroupId?api_key=$API_KEY'));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var episodes = data['episodes'] as List;
+      return episodes.map((episode) => EpisodeModel.fromJson(episode)).toList();
+    } else {
+      throw Exception('Failed to load episodes');
+    }
+  }
+  /*
+  Future<List<EpisodeModel>> getEpisodes(int seriesId, int seasonNumber) async {
+   final response = await http.get(Uri.parse('$BASE_URL/tv/$seriesId/season/$seasonNumber?api_key=$API_KEY'));
+   //final response = await http.get(Uri.parse('$BASE_URL/tv/episode_group?api_key=$API_KEY'));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var episodes = data['episodes'] as List;
+      return episodes.map((episode) => EpisodeModel.fromJson(episode)).toList();
+    } else {
+      throw Exception('Failed to load episodes');
+    }
+  
+
+  }
+  
+   Future<List<EpisodeModel>> getEpisodes(int episodeGroup) async {
+   //final response = await http.get(Uri.parse('$BASE_URL/tv/$seriesId/season/$seasonNumber?api_key=$API_KEY'));
+   final response = await http.get(Uri.parse('$BASE_URL/tv/episode_group/$episodeGroup?api_key=$API_KEY'));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var episodes = data['episodes'] as List;
+      return episodes.map((episode) => EpisodeModel.fromJson(episode)).toList();
+    } else {
+      throw Exception('Failed to load episodes');
+    }
+  
+
+  }
+  */
 }
 
 class Season {
@@ -152,6 +195,11 @@ class Season {
       episodeCount: json['episode_count'],
     );
   }
+    
 }
+
+
+
+
 
   

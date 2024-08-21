@@ -153,10 +153,91 @@ Stream<MyUsersModel> getMyUsersAsStream() {
   
  await _firestore.collection("Users").doc(uid).delete();
   }
+   Future<void> addFavorite({
+    required String seriesId,
+    required String title,
+    required String posterUrl,
+  }) async {
+    try {
+      await _firestore.collection('Users').doc(currentUser!.uid).collection('favorites').doc(seriesId).set({
+        'seriesId': seriesId,
+        'title': title,
+        'posterUrl': posterUrl,
+        'addedAt': Timestamp.now(),
+      });
+      Fluttertoast.showToast(msg: "Series added to favorites!");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Failed to add series: $e");
+    }
+  }
 
+  Future<void> removeFavorite(String seriesId) async {
+    try {
+      await _firestore.collection('Users').doc(currentUser!.uid).collection('favorites').doc(seriesId).delete();
+      Fluttertoast.showToast(msg: "Series removed from favorites!");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Failed to remove series: $e");
+    }
+  }
+
+  Future<bool> isFavorite(String seriesId) async {
+    User? user = currentUser;
+    if (user != null) {
+      DocumentSnapshot doc = await _firestore.collection('Users').doc(user.uid).collection('favorites').doc(seriesId).get();
+      return doc.exists;
+    }
+    return false;
+  }
+    // Kullanıcının tüm favorilerini alma
+  Stream<List<Map<String, dynamic>>> getFavorites() {
+    String uid = currentUser!.uid;
+    return _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('favorites')
+        .snapshots()
+        .map((query) =>
+            query.docs.map((doc) => doc.data()).toList());
+  }
+}
+  /*
+   Future<void> addFavoriteMovie({
+    required String movieId,
+    required String title,
+    required String posterUrl,
+  }) async {
+    try {
+      await _firestore.collection('Users').doc(currentUser!.uid)
+          .collection('fav_movies').doc(movieId).set({
+        'movieId': movieId,
+        'title': title,
+        'posterUrl': posterUrl,
+      });
+      Fluttertoast.showToast(msg: "Movie added to favorites!");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Failed to add movie: $e");
+    }
+  }
+  Future<void> addFavoriteSeries({
+    required String seriesId,
+    required String title,
+    required String posterUrl,
+  }) async {
+    try {
+      await _firestore.collection('Users').doc(currentUser!.uid)
+          .collection('fav_series').doc(seriesId).set({
+        'seriesId': seriesId,
+        'title': title,
+        'posterUrl': posterUrl,
+      });
+      Fluttertoast.showToast(msg: "Series added to favorites!");
+    } catch (e) {
+      Fluttertoast.showToast(msg: "Failed to add series: $e");
+    }
+  }
 }
 
-/*
+
 //var myUser= MyUsersModel().obs;
 //MyUsersModel myUser= MyUsersModel();
   Stream<MyUsersModel> getMyUsersAsStream() {
@@ -171,5 +252,6 @@ Stream<MyUsersModel> getMyUsersAsStream() {
     return mycurrentuser;
 
   }
+
   */
 
