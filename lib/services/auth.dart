@@ -199,6 +199,40 @@ Stream<MyUsersModel> getMyUsersAsStream() {
         .map((query) =>
             query.docs.map((doc) => doc.data()).toList());
   }
+  // Check if the movie is a favorite
+  Future<bool> isFavoriteMovie(String movieId) async {
+     User? user = currentUser;
+    if (user != null) {
+      DocumentSnapshot doc = await _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('fav_movies')
+          .doc(movieId)
+          .get();
+      return doc.exists;
+    }
+    return false;
+  }
+
+  // Add movie to favorites
+  Future<void> addFavoriteMovie({required String movieId, required String title, required String posterUrl}) async {
+    User? user = currentUser;
+    if (user != null) {
+      await _firestore.collection('Users').doc(user.uid).collection('fav_movies').doc(movieId).set({
+        'title': title,
+        'posterUrl': posterUrl,
+        'addedAt': Timestamp.now(),
+      });
+    }
+  }
+
+  // Remove movie from favorites
+  Future<void> removeFavoriteMovie(String movieId) async {
+     User? user = currentUser;
+    if (user != null) {
+      await _firestore.collection('Users').doc(user.uid).collection('fav_movies').doc(movieId).delete();
+    }
+  }
 }
   /*
    Future<void> addFavoriteMovie({
