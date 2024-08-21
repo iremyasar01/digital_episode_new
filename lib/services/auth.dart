@@ -233,6 +233,17 @@ Stream<MyUsersModel> getMyUsersAsStream() {
       await _firestore.collection('Users').doc(user.uid).collection('fav_movies').doc(movieId).delete();
     }
   }
+      // Kullanıcının film favorilerini alma
+  Stream<List<Map<String, dynamic>>> getMoviesFavorites() {
+    String uid = currentUser!.uid;
+    return _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('fav_movies')
+        .snapshots()
+        .map((query) =>
+            query.docs.map((doc) => doc.data()).toList());
+  }
 }
   /*
    Future<void> addFavoriteMovie({
