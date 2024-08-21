@@ -128,6 +128,7 @@ return tvShows;
   }
   Future<List<Season>> getSeasons(int seriesId) async {
     final response = await http.get(Uri.parse('$BASE_URL/tv/$seriesId?api_key=$API_KEY&append_to_response=seasons'));
+    print(seriesId);
     if (response.statusCode == 200) {
       // JSON parse işlemi
       var data = jsonDecode(response.body);
@@ -137,8 +138,8 @@ return tvShows;
       throw Exception('Failed to load seasons');
     }
   }
-   Future<List<EpisodeModel>> getEpisodes(String tvEpisodeGroupId) async {
-    final response = await http.get(Uri.parse('$BASE_URL/tv/episode_group/$tvEpisodeGroupId?api_key=$API_KEY'));
+   Future<List<EpisodeModel>> getEpisodes(int seriesId, int seasonNumber) async {
+    final response = await http.get(Uri.parse('$BASE_URL/tv/$seriesId/season/$seasonNumber?api_key=$API_KEY'));
     print(response.statusCode);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

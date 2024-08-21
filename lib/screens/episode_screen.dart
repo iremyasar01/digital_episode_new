@@ -3,16 +3,17 @@ import 'package:digital_episode_new/services/api_service.dart';
 import 'package:digital_episode_new/widgets/My_appbar.dart';
 
 class EpisodeScreen extends StatelessWidget {
-  final String tvEpisodeGroupId;
+  final int seriesId;
+  final int seasonNumber;
 
-  const EpisodeScreen({super.key, required this.tvEpisodeGroupId});
+  const EpisodeScreen({super.key, required this.seriesId, required this.seasonNumber});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(),
       body: FutureBuilder(
-        future: ApiService().getEpisodes(tvEpisodeGroupId),
+        future: ApiService().getEpisodes(seriesId,seasonNumber),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

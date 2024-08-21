@@ -327,7 +327,6 @@ Stream<MyUsersModel> getMyUsersAsStream() {
     }
   }
 
-  // Remove a series from the watchlist
   Future<void> removeFromMovieWatchlist(String moviesId) async {
     User? user = currentUser;
     if (user != null) {

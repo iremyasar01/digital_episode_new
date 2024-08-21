@@ -33,7 +33,7 @@ class TvShowDetailsScreen extends StatelessWidget {
               Navigator.push(
   context,
   MaterialPageRoute(
-    builder: (context) => const EpisodeScreen(tvEpisodeGroupId: 'your_episode_group_id'),
+    builder: (context) => EpisodeScreen(seriesId: seriesId, seasonNumber:season.seasonNumber ,),
   ),
 
                
