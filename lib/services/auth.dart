@@ -244,6 +244,128 @@ Stream<MyUsersModel> getMyUsersAsStream() {
         .map((query) =>
             query.docs.map((doc) => doc.data()).toList());
   }
+  // Add a series to the watchlist
+  Future<void> addToWatchlist({
+    required String seriesId,
+    required String title,
+    required String posterUrl,
+  }) async {
+   User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(seriesId);
+
+      await watchlistRef.set({
+        'title': title,
+        'posterUrl': posterUrl,
+        'addedAt': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  // Remove a series from the watchlist
+  Future<void> removeFromWatchlist(String seriesId) async {
+    User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(seriesId);
+
+      await watchlistRef.delete();
+    }
+  }
+
+  // Check if a series is in the watchlist
+  Future<bool> isInWatchlist(String seriesId) async {
+    User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('watchlist')
+          .doc(seriesId);
+
+      final docSnapshot = await watchlistRef.get();
+      return docSnapshot.exists;
+    }
+    return false;
+  }
+   Stream<List<Map<String, dynamic>>> getSeriesWatchList() {
+    String uid = currentUser!.uid;
+    return _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('watchlist')
+        .snapshots()
+        .map((query) =>
+            query.docs.map((doc) => doc.data()).toList());
+  }
+  // Add a series to the watchlist
+  Future<void> addToMoviesWatchlist({
+    required String moviesId,
+    required String title,
+    required String posterUrl,
+  }) async {
+   User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('Moviewatchlist')
+          .doc(moviesId);
+
+      await watchlistRef.set({
+        'title': title,
+        'posterUrl': posterUrl,
+        'addedAt': FieldValue.serverTimestamp(),
+      });
+    }
+  }
+
+  // Remove a series from the watchlist
+  Future<void> removeFromMovieWatchlist(String moviesId) async {
+    User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('Moviewatchlist')
+          .doc(moviesId);
+
+      await watchlistRef.delete();
+    }
+  }
+
+  // Check if a series is in the watchlist
+  Future<bool> isInMovieWatchlist(String moviesId) async {
+    User? user = currentUser;
+    if (user != null) {
+      final watchlistRef = _firestore
+          .collection('Users')
+          .doc(user.uid)
+          .collection('Moviewatchlist')
+          .doc(moviesId);
+
+      final docSnapshot = await watchlistRef.get();
+      return docSnapshot.exists;
+    }
+    return false;
+  }
+   Stream<List<Map<String, dynamic>>> getMoviesWatchList() {
+    String uid = currentUser!.uid;
+    return _firestore
+        .collection('Users')
+        .doc(uid)
+        .collection('Moviewatchlist')
+        .snapshots()
+        .map((query) =>
+            query.docs.map((doc) => doc.data()).toList());
+  }
 }
   /*
    Future<void> addFavoriteMovie({

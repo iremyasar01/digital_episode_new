@@ -12,8 +12,6 @@ class AllTvShowsScreen extends StatefulWidget {
 }
 
 class AllTvShowsScreenState extends State<AllTvShowsScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +23,9 @@ class AllTvShowsScreenState extends State<AllTvShowsScreen> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
-            return const Center(
-                child: Text("failed.please try again"));
+            return const Center(child: Text("Failed. Please try again."));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("there are no new series."));
+            return const Center(child: Text("There are no new series."));
           } else {
             final seriesList = snapshot.data!;
             return ListView.builder(
@@ -67,39 +64,82 @@ class AllTvShowsScreenState extends State<AllTvShowsScreen> {
                           color: Color.fromARGB(255, 65, 9, 73),
                         ),
                       ),
-                      trailing: FutureBuilder<bool>(
-                        future: Auth().isFavorite(seriesId),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(strokeWidth: 2),
-                            );
-                          }
-                          final isFav = snapshot.data ?? false;
-                          return IconButton(
-                            icon: Icon(
-                              isFav
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.red,
-                            ),
-                            onPressed: () async {
-                              if (isFav) {
-                                await Auth().removeFavorite(seriesId);
-                              } else {
-                                await Auth().addFavorite(
-                                  seriesId: seriesId,
-                                  title: name,
-                                  posterUrl: posterUrl,
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // Favorite Icon
+                          FutureBuilder<bool>(
+                            future: Auth().isFavorite(seriesId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
                                 );
                               }
-                              setState(() {});
+                              final isFav = snapshot.data ?? false;
+                              return IconButton(
+                                icon: Icon(
+                                  isFav
+                                      ? Icons.favorite
+                                      : Icons.favorite_border,
+                                  color: Colors.red,
+                                ),
+                                onPressed: () async {
+                                  if (isFav) {
+                                    await Auth().removeFavorite(seriesId);
+                                  } else {
+                                    await Auth().addFavorite(
+                                      seriesId: seriesId,
+                                      title: name,
+                                      posterUrl: posterUrl,
+                                    );
+                                  }
+                                  setState(() {});
+                                },
+                              );
                             },
-                          );
-                        },
+                          ),
+                          // Watchlist Checkbox
+                          FutureBuilder<bool>(
+                            future: Auth().isInWatchlist(seriesId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child:
+                                      CircularProgressIndicator(strokeWidth: 2),
+                                );
+                              }
+                              final isInWatchlist = snapshot.data ?? false;
+                              return IconButton(
+                                icon: Icon(
+                                  isInWatchlist
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () async {
+                                  if (isInWatchlist) {
+                                    await Auth().removeFromWatchlist(seriesId);
+                                  } else {
+                                    await Auth().addToWatchlist(
+                                      seriesId: seriesId,
+                                      title: name,
+                                      posterUrl: posterUrl,
+                                    );
+                                  }
+                                  setState(() {});
+                                },
+                              );
+                            },
+                          ),
+                        ],
                       ),
                       onTap: () {
                         Navigator.push(

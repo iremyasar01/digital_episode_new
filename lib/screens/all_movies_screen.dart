@@ -2,7 +2,6 @@ import 'package:digital_episode_new/services/api_service.dart';
 import 'package:digital_episode_new/services/auth.dart';
 import 'package:digital_episode_new/widgets/My_appbar.dart';
 import 'package:flutter/material.dart';
- // Ensure this import is correct
 
 class AllMoviesScreen extends StatefulWidget {
   const AllMoviesScreen({super.key});
@@ -12,7 +11,7 @@ class AllMoviesScreen extends StatefulWidget {
 }
 
 class AllMoviesScreenState extends State<AllMoviesScreen> {
-final Auth auth = Auth();
+  final Auth auth = Auth();
 
   // Check if the movie is a favorite
   Future<bool> isFavorite(String movieId) async {
@@ -98,6 +97,39 @@ final Auth auth = Auth();
                               );
                             },
                           ),
+                          FutureBuilder<bool>(
+                            future: Auth().isInMovieWatchlist(movieId),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return const SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                );
+                              }
+                              final isInMovieWatchlist = snapshot.data ?? false;
+                              return IconButton(
+                                icon: Icon(
+                                  isInMovieWatchlist
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank,
+                                  color: Colors.blue,
+                                ),
+                                onPressed: () async {
+                                  if (isInMovieWatchlist) {
+                                    await Auth().removeFromWatchlist(movieId);
+                                  } else {
+                                    await Auth().addToMoviesWatchlist(
+                                      moviesId: movieId,
+                                      title: name,
+                                      posterUrl: posterUrl,
+                                    );
+                                  }
+                                  setState(() {});
+                                },
+                              );
+                            },
+                          ),
                           GestureDetector(
                             onTap: () {
                               // Navigate to movie details screen if needed
@@ -121,3 +153,4 @@ final Auth auth = Auth();
     );
   }
 }
+
