@@ -4,10 +4,10 @@ import 'package:digital_episode_new/components/my_users_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-//import 'package:get/state_manager.dart';
+
 
 class Auth {
-//extends GetxController{
+
 
 
 
@@ -259,6 +259,7 @@ Stream<MyUsersModel> getMyUsersAsStream() {
           .doc(seriesId);
 
       await watchlistRef.set({
+        'seriesId': seriesId,
         'title': title,
         'posterUrl': posterUrl,
         'addedAt': FieldValue.serverTimestamp(),
@@ -320,6 +321,7 @@ Stream<MyUsersModel> getMyUsersAsStream() {
           .doc(moviesId);
 
       await watchlistRef.set({
+        'moviesId': moviesId,
         'title': title,
         'posterUrl': posterUrl,
         'addedAt': FieldValue.serverTimestamp(),
@@ -366,58 +368,4 @@ Stream<MyUsersModel> getMyUsersAsStream() {
             query.docs.map((doc) => doc.data()).toList());
   }
 }
-  /*
-   Future<void> addFavoriteMovie({
-    required String movieId,
-    required String title,
-    required String posterUrl,
-  }) async {
-    try {
-      await _firestore.collection('Users').doc(currentUser!.uid)
-          .collection('fav_movies').doc(movieId).set({
-        'movieId': movieId,
-        'title': title,
-        'posterUrl': posterUrl,
-      });
-      Fluttertoast.showToast(msg: "Movie added to favorites!");
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Failed to add movie: $e");
-    }
-  }
-  Future<void> addFavoriteSeries({
-    required String seriesId,
-    required String title,
-    required String posterUrl,
-  }) async {
-    try {
-      await _firestore.collection('Users').doc(currentUser!.uid)
-          .collection('fav_series').doc(seriesId).set({
-        'seriesId': seriesId,
-        'title': title,
-        'posterUrl': posterUrl,
-      });
-      Fluttertoast.showToast(msg: "Series added to favorites!");
-    } catch (e) {
-      Fluttertoast.showToast(msg: "Failed to add series: $e");
-    }
-  }
-}
-
-
-//var myUser= MyUsersModel().obs;
-//MyUsersModel myUser= MyUsersModel();
-  Stream<MyUsersModel> getMyUsersAsStream() {
-    String uid =currentUser!.uid;
-   final mycurrentuser =  _firestore.collection("Users").doc(uid)
-    .snapshots().
-    map((event)=>
-      //biz sadece event.data ile json'a ulaşıyoruz.
-      //onu usersmodel türüne dönüştürmemiz lazım.
-         MyUsersModel.fromJson(event.data()!));
-    
-    return mycurrentuser;
-
-  }
-
-  */
-
+  
