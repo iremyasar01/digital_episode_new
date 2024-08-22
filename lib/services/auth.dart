@@ -219,6 +219,7 @@ Stream<MyUsersModel> getMyUsersAsStream() {
     User? user = currentUser;
     if (user != null) {
       await _firestore.collection('Users').doc(user.uid).collection('fav_movies').doc(movieId).set({
+        'movieId': movieId,
         'title': title,
         'posterUrl': posterUrl,
         'addedAt': Timestamp.now(),

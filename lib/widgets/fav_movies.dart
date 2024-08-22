@@ -1,5 +1,6 @@
 import 'package:digital_episode_new/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 
 class FavMovies extends StatefulWidget {
@@ -26,10 +27,34 @@ class _FavMoviesState extends State<FavMovies> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               var movie = snapshot.data![index];
-              return ListTile(
+              var moviesId = movie['movieId']?.toString() ?? '';
+                   if (moviesId.isEmpty) {
+                return const ListTile(
+                  title: Text("Invalid movie data"),
+                );
+              }
+               return Slidable(
+                key: Key(moviesId),
+                endActionPane: ActionPane(
+                  motion: const DrawerMotion(),
+                  children: [
+                    SlidableAction(
+                      onPressed: (context) async {
+                        await Auth().removeFavoriteMovie(moviesId);
+                        setState(() {}); // Refresh the list after removal
+                      },
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      icon: Icons.delete,
+                      label: 'Remove',
+                    ),
+                  ],
+                ),
+              child: ListTile(
                 leading: Image.network(movie['posterUrl']),
                 title: Text(movie['title']),
-              );
+              ),
+               );
             },
           );
         }
